@@ -54,5 +54,16 @@ class OrderItem extends BaseModel
     {
         return $this->hasMany(OrderItemOption::class);
     }
+
+    public const KDS_QUEUED = 'QUEUED';
+    public const KDS_IN_PROGRESS = 'IN_PROGRESS';
+    public const KDS_READY = 'READY';
+    public const KDS_SERVED = 'SERVED';
+
+    public static function allowedKitchenStatuses(): array
+    {
+        return [self::KDS_QUEUED, self::KDS_IN_PROGRESS, self::KDS_READY, self::KDS_SERVED];
+    }
 }
+
 

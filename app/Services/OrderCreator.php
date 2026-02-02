@@ -100,24 +100,35 @@ class OrderCreator
                 $lineTax = $lineSubtotal * ($taxRate / 100.0);
                 $lineTotal = $lineSubtotal + $lineTax;
 
-                $orderItem = new OrderItem();
-                $orderItem->order_id = $order->id;
-                $orderItem->product_variant_id = $variant ? $variant->id : null;
-                $orderItem->variant_name_snapshot = $variant ? $variant->name : null;
+                $orderItemId = $this->uuidV4();
 
-                $orderItem->product_name_snapshot = $product->name;
-                $orderItem->variant_name_snapshot = $variant ? $variant->name : null;
+                DB::table('order_items')->insert([
+                'id' => $orderItemId,
+                'order_id' => $order->id,
 
-                $orderItem->unit_price_snapshot = $unitPrice; // sans options
-                $orderItem->tax_rate_snapshot = $taxRate;
+                   // ✅ garanti non-null
+                'product_id' => $product->id,
+                'product_variant_id' => $variant ? $variant->id : null,
 
-                $orderItem->qty = $qty;
-                $orderItem->line_subtotal = $lineSubtotal;
-                $orderItem->line_tax = $lineTax;
-                $orderItem->line_total = $lineTotal;
+                'product_name_snapshot' => $product->name,
+                'variant_name_snapshot' => $variant ? $variant->name : null, 
+                'unit_price_snapshot' => $unitPrice,
+                'tax_rate_snapshot' => $taxRate,
 
-                $orderItem->kitchen_status = 'QUEUED';
-                $orderItem->save();
+                'qty' => $qty,
+                'line_subtotal' => $lineSubtotal,
+                'line_tax' => $lineTax,
+                'line_total' => $lineTotal,
+
+                'kitchen_notes' => null,
+                'kitchen_status' => 'QUEUED',
+
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+// pour les options, on utilise $orderItemId au lieu de $orderItem->id
+
 
                 // enregistrer snapshot options
                 foreach ($options as $opt) {
@@ -126,7 +137,7 @@ class OrderCreator
                         ->firstOrFail();
 
                     $o = new OrderItemOption();
-                    $o->order_item_id = $orderItem->id;
+                    $o->order_item_id = $orderItemId;
                     $o->option_group_name_snapshot = $oi->group->name;
                     $o->option_item_name_snapshot = $oi->name;
                     $o->option_price_snapshot = (float) $oi->price;
@@ -153,4 +164,20 @@ class OrderCreator
 
         return $prefix . str_pad((string) ($countToday + 1), 4, '0', STR_PAD_LEFT);
     }
+
+    private function uuidV4(): string
+    {
+        $data = random_bytes(16);
+        $data[6] = chr((ord($data[6]) & 0x0f) | 0x40);
+        $data[8] = chr((ord($data[8]) & 0x3f) | 0x80);
+        $hex = bin2hex($data);
+
+        return sprintf('%s-%s-%s-%s-%s',
+            substr($hex, 0, 8),
+            substr($hex, 8, 4),
+            substr($hex, 12, 4),
+            substr($hex, 16, 4),
+            substr($hex, 20, 12)
+    );
+}
 }

@@ -23,8 +23,7 @@ public function up(): void
         $table->index('product_id');
 
         $table->foreign('product_id')
-            ->references('id')->on('products')
-            ->cascadeOnDelete();
+            ->references('id')->on('products');
     });
 }
 
@@ -34,3 +33,4 @@ public function down(): void
 }
 
 }
+

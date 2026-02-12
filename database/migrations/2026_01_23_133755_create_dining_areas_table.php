@@ -17,10 +17,6 @@ public function up(): void
 
         $table->unique(['branch_id', 'name']);
         $table->index('branch_id');
-
-        $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
     });
 }
 
@@ -30,3 +26,4 @@ public function down(): void
 }
 
 }
+

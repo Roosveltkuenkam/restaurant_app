@@ -25,6 +25,7 @@ class User extends Authenticatable
         'phone',
         'branch_id',
         'is_active',
+        'profile_photo',
     ];
 
     /**
@@ -76,5 +77,16 @@ class User extends Authenticatable
     public function hasAnyRole(array $roles): bool
     {
         return $this->roles()->whereIn('name', $roles)->exists();
+    }
+
+    /**
+     * Get the user's profile photo URL.
+     */
+    public function getProfilePhotoUrl(): string
+    {
+        if ($this->profile_photo) {
+            return asset('storage/profile-photos/' . $this->profile_photo);
+        }
+        return asset('images/default-avatar.svg');
     }
 }

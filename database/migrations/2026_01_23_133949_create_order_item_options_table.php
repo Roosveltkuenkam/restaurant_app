@@ -23,8 +23,7 @@ public function up(): void
         $table->index('order_item_id');
 
         $table->foreign('order_item_id')
-            ->references('id')->on('order_items')
-            ->cascadeOnDelete();
+            ->references('id')->on('order_items');
     });
 }
 
@@ -34,3 +33,4 @@ public function down(): void
 }
 
 }
+

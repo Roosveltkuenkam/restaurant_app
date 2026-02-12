@@ -1,0 +1,15 @@
+.tables-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.table-card{display:block;padding:12px;border:1px solid #ddd;border-radius:10px;text-decoration:none;color:#222;background:#fff}
+.badge{margin-top:8px;display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px}
+.orders-screen .content{display:grid;grid-template-columns:340px 1fr;gap:16px;margin-top:16px}
+.left-panel,.right-panel{background:#fff;border:1px solid #eee;border-radius:12px;padding:12px}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.product-card{border:1px solid #eee;border-radius:12px;padding:10px;position:relative}
+.btn-add{position:absolute;right:10px;top:10px}
+.cart-row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #f1f1f1;padding:8px 0}
+.service-tabs .tab{margin-right:6px;padding:8px 12px;border:1px solid #ddd;border-radius:999px;background:#f7f7f7}
+.service-tabs .tab.active{background:#d7d7d7}
+.cats .cat{margin:0 6px 6px 0;padding:8px 12px;border:1px solid #ddd;border-radius:10px}
+.cats .cat.active{background:#e5e5e5}
+.btn-save{width:100%;margin-top:10px;padding:10px;border-radius:10px;background:#6b6b00;color:#fff;border:none}
+.muted{color:#777;font-size:13px}

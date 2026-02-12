@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+    <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         @include('admin.users._form', ['user' => $user, 'roles' => $roles])

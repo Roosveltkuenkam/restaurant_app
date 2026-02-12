@@ -312,3 +312,25 @@ body{
   border-left:3px solid var(--primary);
   padding-left:11px;
 }
+.orders-page { padding: 16px; }
+.orders-header { display:flex; align-items:center; justify-content:space-between; }
+.btn-add { padding:8px 14px; border-radius:10px; background:#ddd; text-decoration:none; color:#111; }
+
+.orders-search { display:flex; gap:10px; margin:12px 0; align-items:center; }
+.orders-search input { width:360px; padding:8px 10px; border:1px solid #ddd; border-radius:999px; }
+.btn-search { padding:8px 14px; border-radius:10px; background:#6b6b00; color:#fff; border:none; }
+
+.orders-tabs { display:flex; gap:10px; margin:12px 0; }
+.tab { padding:8px 14px; border-radius:10px; background:#eaeaea; text-decoration:none; color:#111; }
+.tab.active { background:#cfcfcf; font-weight:600; }
+
+.tables-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+.table-card { background:#fff; border:1px solid #eee; border-radius:14px; padding:12px; text-decoration:none; color:#111; position:relative; }
+.table-title { font-weight:700; margin-bottom:10px; }
+.table-meta { display:grid; grid-template-columns:1fr auto; row-gap:6px; color:#444; font-size:13px; }
+
+.status-badge { position:absolute; top:12px; right:12px; padding:3px 10px; border-radius:999px; font-size:12px; }
+.status-libre { background:#c9f7c9; }
+.status-occupe { background:#ffe0a3; }
+.status-reserve { background:#c9f1ff; }
+.status-ferme { background:#ffc7c7; }

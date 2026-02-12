@@ -24,14 +24,6 @@ public function up(): void
 
         $table->index('branch_id');
         $table->index('dining_area_id');
-
-        $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
-
-        $table->foreign('dining_area_id')
-            ->references('id')->on('dining_areas')
-            ->restrictOnDelete();
     });
 }
 
@@ -41,3 +33,4 @@ public function down(): void
 }
 
 }
+

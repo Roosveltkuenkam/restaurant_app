@@ -23,14 +23,14 @@ public function up(): void
         $table->index('branch_id');
 
         $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
+            ->references('id')->on('branches');
     });
 }
 
 public function down(): void
-{
-    Schema::dropIfExists('menu_categories');
-}
+    {
+        Schema::dropIfExists('menu_categories');
+    }
 
 }
+

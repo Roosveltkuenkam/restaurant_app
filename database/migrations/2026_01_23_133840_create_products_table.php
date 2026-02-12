@@ -32,16 +32,14 @@ public function up(): void
         $table->index('sku');
 
         $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
+            ->references('id')->on('branches');
 
         $table->foreign('menu_category_id')
-            ->references('id')->on('menu_categories')
-            ->restrictOnDelete();
+            ->references('id')->on('menu_categories');
 
         $table->foreign('tax_rule_id')
             ->references('id')->on('tax_rules')
-            ->nullOnDelete();
+            ->onDelete('set null');
     });
 }
 
@@ -51,3 +49,4 @@ public function down(): void
 }
 
 }
+

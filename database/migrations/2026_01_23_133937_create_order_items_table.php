@@ -39,16 +39,15 @@ public function up(): void
         $table->index('product_variant_id');
 
         $table->foreign('order_id')
-            ->references('id')->on('orders')
-            ->cascadeOnDelete();
+            ->references('id')->on('orders');
 
         $table->foreign('product_id')
             ->references('id')->on('products')
-            ->nullOnDelete();
+            ->onDelete('set null');
 
         $table->foreign('product_variant_id')
             ->references('id')->on('product_variants')
-            ->nullOnDelete();
+            ->onDelete('set null');
     });
 }
 
@@ -58,3 +57,4 @@ public function down(): void
 }
 
 }
+

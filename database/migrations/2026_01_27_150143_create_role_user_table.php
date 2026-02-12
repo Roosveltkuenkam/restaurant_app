@@ -19,9 +19,8 @@ class CreateRoleUserTable extends Migration
 
             $table->primary(['role_id', 'user_id']);
 
-            $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -35,3 +34,4 @@ class CreateRoleUserTable extends Migration
         Schema::dropIfExists('role_user');
     }
 }
+

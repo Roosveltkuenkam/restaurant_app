@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title','Dashboard')</title>
 <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin_products.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -15,16 +17,16 @@
         </div>
 
         <nav class="nav">
-            <a class="active" href="{{ route('admin.dashboard') }}"><span class="icon">🏠</span>Dashboard</a>
-            <a href="#"><span class="icon">🍽️</span>Restaurants</a>
-            <a href="{{ route('admin.users.index') }}"><span class="icon">👥</span>Utilisateurs</a>
-            <a href="#"><span class="icon">📋</span>Menu / Plats</a>
-            <a href="#"><span class="icon">🧾</span>Commandes</a>
-            <a href="#"><span class="icon">💳</span>Paiements</a>
-            <a href="#"><span class="icon">📊</span>Statistiques</a>
-            <a href="#"><span class="icon">📦</span>Stocks / Inventaire</a>
-            <a href="#"><span class="icon">📅</span>Réservations</a>
-            <a href="#"><span class="icon">⚙️</span>Paramètres</a>
+            <a href="{{ route('admin.dashboard') }}" @if(Route::is('admin.dashboard')) class="active" @endif><span class="icon">🏠</span>Dashboard</a>
+            <a href="#" @if(Route::is('admin.restaurants.index')) class="active" @endif><span class="icon">🍽️</span>Restaurants</a>
+            <a href="{{ route('admin.users.index') }}" @if(Route::is('admin.users.*')) class="active" @endif><span class="icon">👥</span>Utilisateurs</a>
+            <a href="#" @if(Route::is('admin.menu.*')) class="active" @endif><span class="icon">📋</span>Menu / Plats</a>
+            <a href="{{ route('orders.index') }}" @if(Route::is('orders.*')) class="active" @endif><span class="icon">🧾</span>Commandes</a>
+            <a href="#" @if(Route::is('admin.payments.*')) class="active" @endif><span class="icon">💳</span>Paiements</a>
+            <a href="#" @if(Route::is('admin.statistics.*')) class="active" @endif><span class="icon">📊</span>Statistiques</a>
+            <a href="{{ route('admin.products.index') }}" @if(Route::is('admin.products*')) class="active" @endif><span class="icon">📦</span>Stocks / Inventaire</a>
+            <a href="#" @if(Route::is('admin.reservations.*')) class="active" @endif><span class="icon">📅</span>Réservations</a>
+            <a href="#" @if(Route::is('admin.settings.*')) class="active" @endif><span class="icon">⚙️</span>Paramètres</a>
 
             <form method="POST" action="{{ route('logout') }}" style="margin-top:8px;">
                 @csrf
@@ -40,10 +42,18 @@
     <main class="main">
         <div class="topbar">
             <div class="topbar-left">
-                <div class="avatar"></div>
+                @if(session('user'))
+                    @php
+                        $user = \App\Models\User::find(session('user')['id']);
+                    @endphp
+                    <img src="{{ $user && $user->profile_photo ? asset('storage/profile-photos/' . $user->profile_photo) : asset('images/default-avatar.svg') }}" 
+                         alt="Avatar" style="width:50px;height:50px;border-radius:50%;object-fit:cover;">
+                @else
+                    <div class="avatar"></div>
+                @endif
                 <div class="welcome">
                     <span>Bienvenue</span>
-                    <strong>@if(auth()->check()) {{ auth()->user()->name }} @else Nom d'utilisateur @endif</strong>
+                    <strong>@if(session('user')) {{ session('user')['name'] }} @else Nom d'utilisateur @endif</strong>
                     <span class="badge">online</span>
                 </div>
             </div>

@@ -6,41 +6,37 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBranchesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up(): void
-{
-    Schema::create('branches', function (Blueprint $table) {
-        $table->uuid('id')->primary();
+    {
+        Schema::create('branches', function (Blueprint $table) {
+            $table->char('id', 36)->primary();
 
-        $table->uuid('restaurant_id');
-        $table->string('name');
+            // FK vers restaurants.id (char(36)), nullable
+            $table->char('restaurant_id', 36)->nullable();
+            $table->index('restaurant_id');
 
-        $table->string('address_line')->nullable();
-        $table->string('city')->nullable();
-        $table->string('country')->nullable();
-        $table->string('phone')->nullable();
+            $table->string('name');
 
-        $table->string('default_currency', 10)->default('XAF');
-        $table->boolean('is_active')->default(true);
+            $table->string('address_line')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('phone')->nullable();
 
-        $table->timestamps();
+            $table->string('default_currency', 10)->default('XAF');
+            $table->boolean('is_active')->default(true);
 
-        $table->unique(['restaurant_id', 'name']);
+            $table->timestamps();
 
-        $table->index('restaurant_id');
-        $table->foreign('restaurant_id')
-            ->references('id')->on('restaurants')
-            ->restrictOnDelete();
-    });
-}
+            $table->unique(['restaurant_id', 'name']);
+
+            $table->foreign('restaurant_id')
+                ->references('id')->on('restaurants')
+                ->nullOnDelete();
+        });
+    }
 
     public function down(): void
     {
         Schema::dropIfExists('branches');
     }
-
 }

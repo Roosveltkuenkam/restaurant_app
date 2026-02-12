@@ -20,8 +20,8 @@ public function up(): void
         $table->uuid('restaurant_table_id')->nullable();
         $table->uuid('customer_id')->nullable(); // on ajoutera customers plus tard si besoin
 
-        $table->foreignId('opened_by_user_id')->constrained('users')->cascadeOnDelete();
-        $table->foreignId('closed_by_user_id')->nullable()->constrained('users')->nullOnDelete();
+        $table->foreignId('opened_by_user_id')->constrained('users');
+        $table->foreignId('closed_by_user_id')->nullable()->constrained('users')->onDelete('set null');
 
         $table->timestamp('opened_at');
         $table->timestamp('closed_at')->nullable();
@@ -46,12 +46,11 @@ public function up(): void
         $table->index('restaurant_table_id');
 
         $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
+            ->references('id')->on('branches');
 
         $table->foreign('restaurant_table_id')
             ->references('id')->on('restaurant_tables')
-            ->nullOnDelete();
+            ->onDelete('set null');
     });
 }
 
@@ -61,3 +60,4 @@ public function down(): void
 }
 
 }
+

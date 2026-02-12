@@ -22,8 +22,7 @@ public function up(): void
         $table->string('provider_reference')->nullable(); // transaction id
         $table->string('paid_by_customer_name')->nullable();
 
-        $table->foreignId('taken_by_user_id')->constrained('users')->cascadeOnDelete();
-
+        $table->foreignId('taken_by_user_id')->constrained('users');
         $table->timestamp('paid_at')->nullable();
 
         $table->timestamps();
@@ -34,16 +33,13 @@ public function up(): void
         $table->index('provider_reference');
 
         $table->foreign('branch_id')
-            ->references('id')->on('branches')
-            ->cascadeOnDelete();
+            ->references('id')->on('branches');
 
         $table->foreign('order_id')
-            ->references('id')->on('orders')
-            ->cascadeOnDelete();
+            ->references('id')->on('orders');
 
         $table->foreign('payment_method_id')
-            ->references('id')->on('payment_methods')
-            ->restrictOnDelete();
+            ->references('id')->on('payment_methods');
     });
 }
 
@@ -53,3 +49,4 @@ public function down(): void
 }
 
 }
+

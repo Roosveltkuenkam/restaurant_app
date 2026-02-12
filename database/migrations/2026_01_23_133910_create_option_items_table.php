@@ -24,8 +24,7 @@ public function up(): void
         $table->index('option_group_id');
 
         $table->foreign('option_group_id')
-            ->references('id')->on('option_groups')
-            ->cascadeOnDelete();
+            ->references('id')->on('option_groups');
     });
 }
 
@@ -35,3 +34,4 @@ public function down(): void
 }
 
 }
+

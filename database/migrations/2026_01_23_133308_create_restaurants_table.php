@@ -6,29 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRestaurantsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up(): void
-{
-    Schema::create('restaurants', function (Blueprint $table) {
-        $table->uuid('id')->primary();
-        $table->string('name')->unique();
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('restaurants', function (Blueprint $table) {
+            $table->char('id', 36)->primary();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+    }
 
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(): void
-{
-    Schema::dropIfExists('restaurants');
-}
-
+    {
+        Schema::dropIfExists('restaurants');
+    }
 }

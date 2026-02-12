@@ -32,8 +32,8 @@ class StoreUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'phone' => 'nullable|string|max:20',
-            'password' => ['required', 'confirmed', Password::min(8)],
             'branch_id' => 'nullable|exists:branches,id',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'roles' => 'nullable|array',
             'roles.*' => 'exists:roles,id',
         ];
@@ -49,6 +49,9 @@ class StoreUserRequest extends FormRequest
             'password.required' => 'Le mot de passe est obligatoire.',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
             'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'profile_photo.image' => 'Le fichier doit être une image.',
+            'profile_photo.mimes' => 'L\'image doit être en format JPEG, PNG ou GIF.',
+            'profile_photo.max' => 'L\'image ne doit pas dépasser 2MB.',
         ];
     }
 }

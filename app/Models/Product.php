@@ -56,4 +56,9 @@ class Product extends BaseModel
             'option_group_id'
         )->withTimestamps();
     }
+    // public function category()
+    // {
+    //     return $this->belongsTo(\App\Models\MenuCategory::class, 'menu_category_id');
+    // }
+
 }
